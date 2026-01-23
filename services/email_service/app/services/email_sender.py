@@ -2,16 +2,15 @@ import os
 import smtplib
 from jinja2 import Environment, FileSystemLoader
 from email.mime.text import MIMEText
-
-SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
-SMTP_USER = os.getenv("SMTP_USER")
-SMTP_PASS = os.getenv("SMTP_PASS")
+from app.core.config import settings
+from app.core.logging import logger
 
 env = Environment(loader=FileSystemLoader("app/templates"))
 
 def send_email(event):
-    if not SMTP_USER or not SMTP_PASS:
+    logger.info(f"Preparing to send email to {event['to']} using template {event['template']}")
+    if not settings.SMTP_USER or not settings.SMTP_PASS:
+        logger.error("SMTP credentials are not set in environment variables")
         raise RuntimeError("SMTP credentials are not set in environment variables")
 
     template = env.get_template(f"{event['template']}.html")
@@ -19,12 +18,15 @@ def send_email(event):
 
     msg = MIMEText(html_content, "html")
     msg["Subject"] = event.get("subject", "Notification")
-    msg["From"] = SMTP_USER
+    msg["From"] = settings.SMTP_USER
     msg["To"] = event["to"]
+    
+    logger.info(f"Connecting to SMTP server {settings.SMTP_HOST}:{settings.SMTP_PORT}")
 
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+    with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT) as server:
+        logger.info("Starting TLS session")
         server.starttls()
-        server.login(SMTP_USER, SMTP_PASS)
+        server.login(settings.SMTP_USER, settings.SMTP_PASS)
         server.send_message(msg)
 
-    print(f"Email sent to {event['to']}")
+    logger.info(f"Email successfully sent to {event['to']}")
