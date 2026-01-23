@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px #cccccc;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d89ef;
+            margin-bottom: 20px;
+        }
+        .content {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888888;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #2d89ef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Payment Successful!</div>
+        <div class="content">
+            Hi {{ name }},<br><br>
+            We have successfully received your payment of <span class="highlight">${{ amount }}</span>.<br><br>
+            Thank you for using our services. If you have any questions, feel free to reach out.<br><br>
+            Best regards,<br>
+            The Notification Team
+        </div>
+        <div class="footer">
+            &copy; 2026 Notification System. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

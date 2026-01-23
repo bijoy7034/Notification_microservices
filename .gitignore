@@ -1,0 +1,76 @@
+# ---------------------
+# Python
+# ---------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Env / Config files
+.env
+*.env
+.env.*.local
+secrets/
+instance/
+
+# Migrations (if using any DB)
+migrations/
+*.sqlite3
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# ---------------------
+# Docker
+# ---------------------
+*.pid
+*.sock
+docker-compose.override.yml
+docker-compose.override.yaml
+**/Dockerfile.old
+**/docker-compose.override.yml
+**/docker-compose.override.yaml
+
+# ---------------------
+# VS Code
+# ---------------------
+.vscode/
+.history/
+*.code-workspace
+
+# ---------------------
+# macOS
+# ---------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# ---------------------
+# Logs / Temp
+# ---------------------
+*.log
+*.tmp
+*.swp
+*.swo

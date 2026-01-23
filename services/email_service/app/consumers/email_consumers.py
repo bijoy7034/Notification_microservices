@@ -1,0 +1,23 @@
+import json
+import pika
+from app.services.email_sender import send_email
+
+def callback(ch, method, properties, body):
+    event = json.loads(body)
+    send_email(event)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+
+def start_consumer():
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters("rabbitmq")
+    )
+    channel = connection.channel()
+    channel.queue_declare(queue="email.queue", durable=True)
+
+    channel.basic_consume(
+        queue="email.queue",
+        on_message_callback=callback
+    )
+
+    print("Email service started...")
+    channel.start_consuming()
