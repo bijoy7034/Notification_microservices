@@ -1,11 +1,10 @@
-
 services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"      # RabbitMQ messaging port
-      - "15672:15672"    # Management UI
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
@@ -21,13 +20,8 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-    environment:
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      SMTP_HOST: smtp.gmail.com
-      SMTP_PORT: 587
-      SMTP_USER: your_email@gmail.com
-      SMTP_PASS: your_app_password
+    env_file:
+      - .env
     volumes:
       - ./services/email_service:/app
     command: python -m app.main
