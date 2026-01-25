@@ -14,6 +14,18 @@ services:
       timeout: 5s
       retries: 5
 
+  notification_api_service:
+    build: ./services/notification_api
+    container_name: notification_api_service
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
   email_service:
     build: ./services/email_service
     container_name: email_service
@@ -22,6 +34,4 @@ services:
         condition: service_healthy
     env_file:
       - .env
-    volumes:
-      - ./services/email_service:/app
     command: python -m app.main

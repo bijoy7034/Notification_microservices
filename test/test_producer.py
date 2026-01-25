@@ -19,7 +19,7 @@ message = {
     "notification_id": "test-001",
     "type": "EMAIL",
     "subject": "Payment",
-    "to": "bijoyanil74@gmail.com",  
+    "to": "blessy.anil777@gmail.com",  
     "template": "payment_success",
     "data": {
         "name": "Bijoy",
