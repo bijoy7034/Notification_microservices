@@ -18,7 +18,7 @@ def callback(ch, method, properties, body):
 
 def start_consumer():
     rabbitmq_host = os.getenv("RABBITMQ_HOST", "rabbitmq")
-    time.sleep(10) # wait for rabbitmq to initialize
+    time.sleep(10) 
     
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(host=rabbitmq_host)
