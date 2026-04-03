@@ -1,9 +1,9 @@
 import logging
-from app.consumers.sms_consumers import start_consumer
+from app.consumers.push_consumers import start_consumer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    logger.info("Starting SMS Service...")
+    logger.info("Starting Push Notification Service...")
     start_consumer()

@@ -9,13 +9,21 @@ router = APIRouter(
 
 @router.post("/")
 async def send_notification(data: NotificationRequest):
+    message = {
+        "to": data.to,
+        "subject": data.subject,
+        "template": data.template,
+        "data": data.data
+    }
+    
     if data.channel == "email":
-        message = {
-            "to": data.to,
-            "subject": data.subject,
-            "template": data.template,
-            "data": data.data
-        }
         publish_notification(message, routing_key="email.queue")
         return {"message": "Email notification sent to the queue", "channel": data.channel}
-    return {"message": "Notification sent"}
+    elif data.channel == "sms":
+        publish_notification(message, routing_key="sms.queue")
+        return {"message": "SMS notification sent to the queue", "channel": data.channel}
+    elif data.channel == "push":
+        publish_notification(message, routing_key="push.queue")
+        return {"message": "Push notification sent to the queue", "channel": data.channel}
+        
+    return {"error": "Unsupported channel", "channel": data.channel}

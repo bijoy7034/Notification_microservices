@@ -35,3 +35,23 @@ services:
     env_file:
       - .env
     command: python -m app.main
+
+  sms_service:
+    build: ./services/sms_service
+    container_name: sms_service
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - .env
+    command: python -m app.main
+
+  push_service:
+    build: ./services/push_service
+    container_name: push_service
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - .env
+    command: python -m app.main
